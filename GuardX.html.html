@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Monitoring System</title>
+    <style>
+        :root {
+  /* Primitive Color Tokens */
+  --color-white: rgba(255, 255, 255, 1);
+  --color-black: rgba(0, 0, 0, 1);
+  --color-cream-50: rgba(252, 252, 249, 1);
+  --color-cream-100: rgba(255, 255, 253, 1);
+  --color-gray-200: rgba(245, 245, 245, 1);
+  --color-gray-300: rgba(167, 169, 169, 1);
+  --color-gray-400: rgba(119, 124, 124, 1);
+  --color-slate-500: rgba(98, 108, 113, 1);
+  --color-brown-600: rgba(94, 82, 64, 1);
+  --color-charcoal-700: rgba(31, 33, 33, 1);
+  --color-charcoal-800: rgba(38, 40, 40, 1);
+  --color-slate-900: rgba(19, 52, 59, 1);
+  --color-teal-300: rgba(50, 184, 198, 1);
+  --color-teal-400: rgba(45, 166, 178, 1);
+  --color-teal-500: rgba(33, 128, 141, 1);
+  --color-teal-600: rgba(29, 116, 128, 1);
+  --color-teal-700: rgba(26, 104, 115, 1);
+  --color-teal-800: rgba(41, 150, 161, 1);
+  --color-red-400: rgba(255, 84, 89, 1);
+  --color-red-500: rgba(192, 21, 47, 1);
+  --color-orange-400: rgba(230, 129, 97, 1);
+  --color-orange-500: rgba(168, 75, 47, 1);
+
+  /* RGB versions for opacity control */
+  --color-brown-600-rgb: 94, 82, 64;
+  --color-teal-500-rgb: 33, 128, 141;
+  --color-slate-900-rgb: 19, 52, 59;
+  --color-slate-500-rgb: 98, 108, 113;
+  --color-red-500-rgb: 192, 21, 47;
+  --color-red-400-rgb: 255, 84, 89;
+  --color-orange-500-rgb: 168, 75, 47;
+  --color-orange-400-rgb: 230, 129, 97;
+
+  /* Background color tokens (Light Mode) */
+  --color-bg-1: rgba(59, 130, 246, 0.08);
+  --color-bg-2: rgba(245, 158, 11, 0.08);
+  --color-bg-3: rgba(34, 197, 94, 0.08);
+  --color-bg-4: rgba(239, 68, 68, 0.08);
+  --color-bg-5: rgba(147, 51, 234, 0.08);
+  --color-bg-6: rgba(249, 115, 22, 0.08);
+  --color-bg-7: rgba(236, 72, 153, 0.08);
+  --color-bg-8: rgba(6, 182, 212, 0.08);
+
+  /* Semantic Color Tokens (Light Mode) */
+  --color-background: var(--color-cream-50);
+  --color-surface: var(--color-cream-100);
+  --color-text: var(--color-slate-900);
+  --color-text-secondary: var(--color-slate-500);
+  --color-primary: var(--color-teal-500);
+  --color-primary-hover: var(--color-teal-600);
+  --color-primary-active: var(--color-teal-700);
+  --color-secondary: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-secondary-hover: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-secondary-active: rgba(var(--color-brown-600-rgb), 0.25);
+  --color-border: rgba(var(--color-brown-600-rgb), 0.2);
+  --color-btn-primary-text: var(--color-cream-50);
+  --color-card-border: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-card-border-inner: rgba(var(--color-brown-600-rgb), 0.12);
+  --color-error: var(--color-red-500);
+  --color-success: var(--color-teal-500);
+  --color-warning: var(--color-orange-500);
+  --color-info: var(--color-slate-500);
+  --color-focus-ring: rgba(var(--color-teal-500-rgb), 0.4);
+  --color-select-caret: rgba(var(--color-slate-900-rgb), 0.8);
+
+  --focus-ring: 0 0 0 3px var(--color-focus-ring);
+  --focus-outline: 2px solid var(--color-primary);
+  --status-bg-opacity: 0.15;
+  --status-border-opacity: 0.25;
+
+  /* Typography */
+  --font-family-base: "FKGroteskNeue", "Geist", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family-mono: "Berkeley Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-size-xs: 11px;
+  --font-size-sm: 12px;
+  --font-size-base: 14px;
+  --font-size-md: 14px;
+  --font-size-lg: 16px;
+  --font-size-xl: 18px;
+  --font-size-2xl: 20px;
+  --font-size-3xl: 24px;
+  --font-size-4xl: 30px;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 550;
+  --font-weight-bold: 600;
+  --line-height-tight: 1.2;
+  --line-height-normal: 1.5;
+  --letter-spacing-tight: -0.01em;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 1px;
+  --space-2: 2px;
+  --space-4: 4px;
+  --space-6: 6px;
+  --space-8: 8px;
+  --space-10: 10px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-20: 20px;
+  --space-24: 24px;
+  --space-32: 32px;
+
+  /* Border Radius */
+  --radius-sm: 6px;
+  --radius-base: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.04), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.04), 0 4px 6px -2px rgba(0, 0, 0, 0.02);
+  --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.15), inset 0 -1px 0 rgba(0, 0, 0, 0.03);
+
+  /* Animation */
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --ease-standard: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Healthcare specific colors */
+  --color-normal: #10b981;
+  --color-warning: #f59e0b;
+  --color-critical: #ef4444;
+  --color-normal-bg: rgba(16, 185, 129, 0.1);
+  --color-warning-bg: rgba(245, 158, 11, 0.1);
+  --color-critical-bg: rgba(239, 68, 68, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-gray-400-rgb: 119, 124, 124;
+    --color-teal-300-rgb: 50, 184, 198;
+    --color-gray-300-rgb: 167, 169, 169;
+    --color-gray-200-rgb: 245, 245, 245;
+
+    --color-bg-1: rgba(29, 78, 216, 0.15);
+    --color-bg-2: rgba(180, 83, 9, 0.15);
+    --color-bg-3: rgba(21, 128, 61, 0.15);
+    --color-bg-4: rgba(185, 28, 28, 0.15);
+    --color-bg-5: rgba(107, 33, 168, 0.15);
+    --color-bg-6: rgba(194, 65, 12, 0.15);
+    --color-bg-7: rgba(190, 24, 93, 0.15);
+    --color-bg-8: rgba(8, 145, 178, 0.15);
+
+    --color-background: var(--color-charcoal-700);
+    --color-surface: var(--color-charcoal-800);
+    --color-text: var(--color-gray-200);
+    --color-text-secondary: rgba(var(--color-gray-300-rgb), 0.7);
+    --color-primary: var(--color-teal-300);
+    --color-primary-hover: var(--color-teal-400);
+    --color-primary-active: var(--color-teal-800);
+    --color-secondary: rgba(var(--color-gray-400-rgb), 0.15);
+    --color-secondary-hover: rgba(var(--color-gray-400-rgb), 0.25);
+    --color-secondary-active: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-border: rgba(var(--color-gray-400-rgb), 0.3);
+    --color-error: var(--color-red-400);
+    --color-success: var(--color-teal-300);
+    --color-warning: var(--color-orange-400);
+    --color-info: var(--color-gray-300);
+    --color-focus-ring: rgba(var(--color-teal-300-rgb), 0.4);
+    --color-btn-primary-text: var(--color-slate-900);
+    --color-card-border: rgba(var(--color-gray-400-rgb), 0.2);
+    --color-card-border-inner: rgba(var(--color-gray-400-rgb), 0.15);
+    --shadow-inset-sm: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    --color-select-caret: rgba(var(--color-gray-200-rgb), 0.8);
+  }
+}
+
+@font-face {
+  font-family: 'FKGroteskNeue';
+  src: url('https://r2cdn.perplexity.ai/fonts/FKGroteskNeue.woff2') format('woff2');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: var(--line-height-normal);
+  font-size: var(--font-size-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app-header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-card-border);
+  padding: var(--space-16) var(--space-24);
+  box-shadow: var(--shadow-sm);
+}
+
+.header-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+}
+
+.app-title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.nav-menu {
+  display: flex;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+}
+
+.nav-btn {
+  padding: var(--space-8) var(--space-16);
+  background: var(--color-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.nav-btn:hover {
+  background: var(--color-secondary-hover);
+}
+
+.nav-btn.active {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  border-color: var(--color-primary);
+}
+
+.main-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: var(--space-24);
+}
+
+.view {
+  display: none;
+}
+
+.view.active {
+  display: block;
+}
+
+.vitals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-16);
+  margin-bottom: var(--space-32);
+}
+
+.vital-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-normal) var(--ease-standard);
+}
+
+.vital-card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.vital-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-12);
+}
+
+.vital-icon {
+  font-size: var(--font-size-3xl);
+}
+
+.vital-status {
+  padding: var(--space-4) var(--space-8);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+}
+
+.status-normal {
+  background: var(--color-normal-bg);
+  color: var(--color-normal);
+}
+
+.status-warning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.status-critical {
+  background: var(--color-critical-bg);
+  color: var(--color-critical);
+}
+
+.vital-name {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+  font-weight: var(--font-weight-medium);
+}
+
+.vital-value {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.vital-unit {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-left: var(--space-4);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-16);
+}
+
+.section-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.btn {
+  padding: var(--space-10) var(--space-20);
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  border: none;
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--duration-normal) var(--ease-standard);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.btn:hover {
+  background: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background: var(--color-secondary);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background: var(--color-secondary-hover);
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-20);
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+}
+
+.modal-header {
+  margin-bottom: var(--space-24);
+}
+
+.modal-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.form-grid {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.form-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+}
+
+.form-input {
+  padding: var(--space-10) var(--space-12);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-base);
+  background: var(--color-background);
+  color: var(--color-text);
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: var(--focus-ring);
+}
+
+.modal-actions {
+  display: flex;
+  gap: var(--space-12);
+  justify-content: flex-end;
+  margin-top: var(--space-24);
+}
+
+.risk-summary {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  margin-bottom: var(--space-32);
+}
+
+.risk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-16);
+  margin-top: var(--space-16);
+}
+
+.risk-item {
+  padding: var(--space-12);
+  background: var(--color-background);
+  border-radius: var(--radius-base);
+  border: 1px solid var(--color-card-border-inner);
+}
+
+.risk-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.risk-value {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+}
+
+.risk-low {
+  color: var(--color-normal);
+}
+
+.risk-moderate {
+  color: var(--color-warning);
+}
+
+.risk-high {
+  color: var(--color-critical);
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-8);
+  margin-bottom: var(--space-24);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tab-btn {
+  padding: var(--space-12) var(--space-20);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.tab-btn:hover {
+  color: var(--color-text);
+}
+
+.tab-btn.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.questionnaire {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-24);
+}
+
+.question-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-20);
+}
+
+.question-text {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  margin-bottom: var(--space-16);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.option-label {
+  display: flex;
+  align-items: center;
+  padding: var(--space-12);
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-base);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-standard);
+}
+
+.option-label:hover {
+  background: var(--color-secondary);
+}
+
+.option-label input {
+  margin-right: var(--space-12);
+  cursor: pointer;
+}
+
+.score-display {
+  background: var(--color-bg-1);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  margin-top: var(--space-24);
+  text-align: center;
+}
+
+.score-number {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--space-8);
+}
+
+.score-interpretation {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--space-4);
+}
+
+.score-description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.prediction-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-20);
+  margin-bottom: var(--space-24);
+}
+
+.prediction-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-24);
+  box-shadow: var(--shadow-sm);
+}
+
+.prediction-header {
+  margin-bottom: var(--space-16);
+}
+
+.condition-name {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-8);
+}
+
+.risk-badge {
+  display: inline-block;
+  padding: var(--space-6) var(--space-12);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.risk-badge.low {
+  background: var(--color-normal-bg);
+  color: var(--color-normal);
+}
+
+.risk-badge.moderate {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+
+.risk-badge.high {
+  background: var(--color-critical-bg);
+  color: var(--color-critical);
+}
+
+.confidence-score {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-8);
+}
+
+.confidence-bar {
+  height: 6px;
+  background: var(--color-secondary);
+  border-radius: var(--radius-full);
+  margin-top: var(--space-4);
+  overflow: hidden;
+}
+
+.confidence-fill {
+  height: 100%;
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+  transition: width var(--duration-normal) var(--ease-standard);
+}
+
+.risk-factors {
+  margin-top: var(--space-16);
+}
+
+.risk-factors-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-8);
+}
+
+.risk-factors-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.risk-factors-list li {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  padding-left: var(--space-16);
+  position: relative;
+}
+
+.risk-factors-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+}
+
+.recommendation {
+  margin-top: var(--space-16);
+  padding: var(--space-12);
+  background: var(--color-bg-2);
+  border-radius: var(--radius-base);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.report-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-card-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-32);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.report-section {
+  margin-bottom: var(--space-32);
+  padding-bottom: var(--space-24);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.report-section:last-child {
+  border-bottom: none;
+}
+
+.report-section-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  margin-bottom: var(--space-16);
+}
+
+.patient-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-16);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.info-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.info-value {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.vitals-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vitals-table th,
+.vitals-table td {
+  padding: var(--space-12);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.vitals-table th {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  background: var(--color-background);
+}
+
+.vitals-table td {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+}
+
+.recommendations-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.recommendations-list li {
+  padding: var(--space-12);
+  background: var(--color-background);
+  border-radius: var(--radius-base);
+  border-left: 3px solid var(--color-primary);
+  font-size: var(--font-size-base);
+}
+
+.action-buttons {
+  display: flex;
+  gap: var(--space-12);
+  flex-wrap: wrap;
+  margin-top: var(--space-24);
+}
+
+.loading {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .vitals-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .prediction-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .patient-info-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav-menu {
+    width: 100%;
+  }
+  
+  .nav-btn {
+    flex: 1;
+    min-width: 120px;
+  }
+}
+
+@media print {
+  .app-header,
+  .nav-menu,
+  .action-buttons {
+    display: none;
+  }
+  
+  .report-container {
+    border: none;
+    box-shadow: none;
+  }
+}
+    </style>
+</head>
+<body>
+    <header class="app-header">
+        <div class="header-content">
+            <h1 class="app-title">GuardX</h1>
+            <nav class="nav-menu">
+                <button class="nav-btn active" onclick="showView('dashboard')">Dashboard</button>
+                <button class="nav-btn" onclick="showView('mental-health')">Mental Health</button>
+                <button class="nav-btn" onclick="showView('ml-predictions')">Predictions</button>
+                <button class="nav-btn" onclick="showView('clinical-report')">Clinical Report</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- Dashboard View -->
+        <div id="dashboard" class="view active">
+            <div class="section-header">
+                <h2 class="section-title">Vital Signs Monitor</h2>
+                <button class="btn" onclick="openVitalsModal()">📊 Update Vital Signs</button>
+            </div>
+            
+            <div class="vitals-grid" id="vitals-grid">
+                <!-- Vital cards will be generated here -->
+            </div>
+
+            <div class="risk-summary">
+                <h3 class="section-title">ML Risk Assessment Summary</h3>
+                <div class="risk-grid" id="risk-summary-grid">
+                    <!-- Risk summary items will be generated here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Mental Health Screening View -->
+        <div id="mental-health" class="view">
+            <div class="section-header">
+                <h2 class="section-title">Mental Health Screening</h2>
+                <button class="btn btn-secondary" onclick="showView('dashboard')">← Back to Dashboard</button>
+            </div>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('phq9')">PHQ-9 (Depression)</button>
+                <button class="tab-btn" onclick="switchTab('gad7')">GAD-7 (Anxiety)</button>
+            </div>
+
+            <div id="phq9-content" class="tab-content active">
+                <div class="questionnaire" id="phq9-questionnaire">
+                    <!-- PHQ-9 questions will be generated here -->
+                </div>
+                <div class="score-display">
+                    <div class="score-number" id="phq9-score">0</div>
+                    <div class="score-interpretation" id="phq9-interpretation">Minimal Depression</div>
+                    <div class="score-description">Score Range: 0-27</div>
+                </div>
+                <div style="margin-top: var(--space-24);">
+                    <button class="btn" onclick="saveMentalHealthResults()">💾 Save Results</button>
+                </div>
+            </div>
+
+            <div id="gad7-content" class="tab-content">
+                <div class="questionnaire" id="gad7-questionnaire">
+                    <!-- GAD-7 questions will be generated here -->
+                </div>
+                <div class="score-display">
+                    <div class="score-number" id="gad7-score">0</div>
+                    <div class="score-interpretation" id="gad7-interpretation">Minimal Anxiety</div>
+                    <div class="score-description">Score Range: 0-21</div>
+                </div>
+                <div style="margin-top: var(--space-24);">
+                    <button class="btn" onclick="saveMentalHealthResults()">💾 Save Results</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ML Predictions View -->
+        <div id="ml-predictions" class="view">
+            <div class="section-header">
+                <h2 class="section-title">ML Risk Predictions</h2>
+                <div style="display: flex; gap: var(--space-12);">
+                    <button class="btn" onclick="recalculatePredictions()">🔄 Recalculate Predictions</button>
+                    <button class="btn btn-secondary" onclick="showView('dashboard')">← Back to Dashboard</button>
+                </div>
+            </div>
+
+            <div class="prediction-cards" id="prediction-cards">
+                <!-- Prediction cards will be generated here -->
+            </div>
+        </div>
+
+        <!-- Clinical Report View -->
+        <div id="clinical-report" class="view">
+            <div class="section-header">
+                <h2 class="section-title">Clinical Report</h2>
+                <button class="btn btn-secondary" onclick="showView('dashboard')">← Back to Dashboard</button>
+            </div>
+
+            <div class="report-container" id="report-content">
+                <!-- Report content will be generated here -->
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn" onclick="downloadReport()">📄 Download PDF Report</button>
+                <button class="btn btn-secondary" onclick="printReport()">🖨️ Print Report</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Vitals Input Modal -->
+    <div id="vitals-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Update Vital Signs</h2>
+            </div>
+            <form class="form-grid" id="vitals-form">
+                <div class="form-group">
+                    <label class="form-label" for="heart-rate">Heart Rate (BPM)</label>
+                    <input class="form-input" type="number" id="heart-rate" min="30" max="220" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="systolic-bp">Systolic Blood Pressure (mmHg)</label>
+                    <input class="form-input" type="number" id="systolic-bp" min="60" max="250" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="diastolic-bp">Diastolic Blood Pressure (mmHg)</label>
+                    <input class="form-input" type="number" id="diastolic-bp" min="40" max="150" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="oxygen-saturation">Oxygen Saturation (SpO2 %)</label>
+                    <input class="form-input" type="number" id="oxygen-saturation" min="70" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="temperature">Body Temperature (°F)</label>
+                    <input class="form-input" type="number" step="0.1" id="temperature" min="90" max="110" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="respiratory-rate">Respiratory Rate (breaths/min)</label>
+                    <input class="form-input" type="number" id="respiratory-rate" min="8" max="40" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="blood-glucose">Blood Glucose (mg/dL)</label>
+                    <input class="form-input" type="number" id="blood-glucose" min="40" max="600" required>
+                </div>
+            </form>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" onclick="closeVitalsModal()">Cancel</button>
+                <button class="btn" onclick="submitVitals()">Submit</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Application State
+        const state = {
+            vitalSigns: {
+                heartRate: 75,
+                systolicBP: 120,
+                diastolicBP: 80,
+                oxygenSaturation: 98,
+                temperature: 98.6,
+                respiratoryRate: 16,
+                bloodGlucose: 95
+            },
+            phq9Scores: Array(9).fill(0),
+            gad7Scores: Array(7).fill(0),
+            mlPredictions: [],
+            patientInfo: {
+                name: "Sample Patient",
+                age: 45,
+                gender: "Not specified",
+                patientId: "HP-2024-001"
+            }
+        };
+
+        // PHQ-9 and GAD-7 Questions
+        const phq9Questions = [
+            "Little interest or pleasure in doing things",
+            "Feeling down, depressed, or hopeless",
+            "Trouble falling or staying asleep, or sleeping too much",
+            "Feeling tired or having little energy",
+            "Poor appetite or overeating",
+            "Feeling bad about yourself - or that you are a failure",
+            "Trouble concentrating on things",
+            "Moving or speaking slowly, or being fidgety or restless",
+            "Thoughts that you would be better off dead or of hurting yourself"
+        ];
+
+        const gad7Questions = [
+            "Feeling nervous, anxious, or on edge",
+            "Not being able to stop or control worrying",
+            "Worrying too much about different things",
+            "Trouble relaxing",
+            "Being so restless that it's hard to sit still",
+            "Becoming easily annoyed or irritable",
+            "Feeling afraid as if something awful might happen"
+        ];
+
+        const mlConditions = [
+            { name: "Diabetes", algorithm: "Random Forest", riskFactors: ["Blood glucose", "BMI", "Age", "Family history"] },
+            { name: "Sepsis", algorithm: "Neural Network", riskFactors: ["Heart rate", "Temperature", "Blood pressure", "Respiratory rate"] },
+            { name: "Cardiovascular (Arrhythmia)", algorithm: "CNN/LSTM", riskFactors: ["Heart rate variability", "ECG patterns", "Blood pressure"] },
+            { name: "Pneumonia", algorithm: "Vision Transformer", riskFactors: ["Respiratory rate", "Temperature", "Oxygen saturation"] },
+            { name: "Hypertension", algorithm: "XGBoost", riskFactors: ["Systolic BP", "Diastolic BP", "Age", "Stress level"] }
+        ];
+
+        const responseOptions = [
+            { value: 0, label: "Not at all" },
+            { value: 1, label: "Several days" },
+            { value: 2, label: "More than half the days" },
+            { value: 3, label: "Nearly every day" }
+        ];
+
+        // Initialize Application
+        function init() {
+            renderVitals();
+            renderRiskSummary();
+            renderMentalHealthQuestionnaires();
+            calculateMLPredictions();
+            renderPredictions();
+            generateClinicalReport();
+        }
+
+        // View Management
+        function showView(viewId) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(viewId).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (viewId === 'clinical-report') {
+                generateClinicalReport();
+            }
+        }
+
+        // Tab Management
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabId + '-content').classList.add('active');
+        }
+
+        // Vital Signs Functions
+        function renderVitals() {
+            const vitals = [
+                { name: "Heart Rate", value: state.vitalSigns.heartRate, unit: "BPM", icon: "❤️", key: "heartRate", normal: [60, 100] },
+                { name: "Blood Pressure", value: `${state.vitalSigns.systolicBP}/${state.vitalSigns.diastolicBP}`, unit: "mmHg", icon: "🩺", key: "bp", normal: [[90, 140], [60, 90]] },
+                { name: "Oxygen Saturation", value: state.vitalSigns.oxygenSaturation, unit: "SpO2 %", icon: "🫁", key: "oxygenSaturation", normal: [95, 100] },
+                { name: "Temperature", value: state.vitalSigns.temperature, unit: "°F", icon: "🌡️", key: "temperature", normal: [97.0, 99.5] },
+                { name: "Respiratory Rate", value: state.vitalSigns.respiratoryRate, unit: "breaths/min", icon: "💨", key: "respiratoryRate", normal: [12, 20] },
+                { name: "Blood Glucose", value: state.vitalSigns.bloodGlucose, unit: "mg/dL", icon: "🩸", key: "bloodGlucose", normal: [70, 125] }
+            ];
+
+            const grid = document.getElementById('vitals-grid');
+            grid.innerHTML = vitals.map(vital => {
+                const status = getVitalStatus(vital);
+                return `
+                    <div class="vital-card">
+                        <div class="vital-header">
+                            <span class="vital-icon">${vital.icon}</span>
+                            <span class="vital-status status-${status}">${status}</span>
+                        </div>
+                        <div class="vital-name">${vital.name}</div>
+                        <div class="vital-value">
+                            ${vital.value}
+                            <span class="vital-unit">${vital.unit}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getVitalStatus(vital) {
+            if (vital.key === 'bp') {
+                const systolic = state.vitalSigns.systolicBP;
+                const diastolic = state.vitalSigns.diastolicBP;
+                if (systolic >= 180 || diastolic >= 120) return 'critical';
+                if (systolic >= 140 || diastolic >= 90 || systolic < 90 || diastolic < 60) return 'warning';
+                return 'normal';
+            }
+            
+            const value = typeof vital.value === 'number' ? vital.value : parseFloat(vital.value);
+            const [min, max] = vital.normal;
+            
+            if (value < min * 0.85 || value > max * 1.15) return 'critical';
+            if (value < min || value > max) return 'warning';
+            return 'normal';
+        }
+
+        function openVitalsModal() {
+            document.getElementById('heart-rate').value = state.vitalSigns.heartRate;
+            document.getElementById('systolic-bp').value = state.vitalSigns.systolicBP;
+            document.getElementById('diastolic-bp').value = state.vitalSigns.diastolicBP;
+            document.getElementById('oxygen-saturation').value = state.vitalSigns.oxygenSaturation;
+            document.getElementById('temperature').value = state.vitalSigns.temperature;
+            document.getElementById('respiratory-rate').value = state.vitalSigns.respiratoryRate;
+            document.getElementById('blood-glucose').value = state.vitalSigns.bloodGlucose;
+            
+            document.getElementById('vitals-modal').classList.add('active');
+        }
+
+        function closeVitalsModal() {
+            document.getElementById('vitals-modal').classList.remove('active');
+        }
+
+        function submitVitals() {
+            state.vitalSigns.heartRate = parseInt(document.getElementById('heart-rate').value);
+            state.vitalSigns.systolicBP = parseInt(document.getElementById('systolic-bp').value);
+            state.vitalSigns.diastolicBP = parseInt(document.getElementById('diastolic-bp').value);
+            state.vitalSigns.oxygenSaturation = parseInt(document.getElementById('oxygen-saturation').value);
+            state.vitalSigns.temperature = parseFloat(document.getElementById('temperature').value);
+            state.vitalSigns.respiratoryRate = parseInt(document.getElementById('respiratory-rate').value);
+            state.vitalSigns.bloodGlucose = parseInt(document.getElementById('blood-glucose').value);
+            
+            renderVitals();
+            calculateMLPredictions();
+            renderRiskSummary();
+            renderPredictions();
+            closeVitalsModal();
+        }
+
+        // Mental Health Functions
+        function renderMentalHealthQuestionnaires() {
+            renderQuestionnaire('phq9', phq9Questions);
+            renderQuestionnaire('gad7', gad7Questions);
+        }
+
+        function renderQuestionnaire(type, questions) {
+            const container = document.getElementById(`${type}-questionnaire`);
+            container.innerHTML = questions.map((question, index) => `
+                <div class="question-card">
+                    <div class="question-text">${index + 1}. ${question}</div>
+                    <div class="options">
+                        ${responseOptions.map(option => `
+                            <label class="option-label">
+                                <input type="radio" name="${type}-q${index}" value="${option.value}" 
+                                    onchange="updateScore('${type}', ${index}, ${option.value})">
+                                ${option.label} (${option.value})
+                            </label>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateScore(type, questionIndex, value) {
+            if (type === 'phq9') {
+                state.phq9Scores[questionIndex] = value;
+                const total = state.phq9Scores.reduce((a, b) => a + b, 0);
+                document.getElementById('phq9-score').textContent = total;
+                document.getElementById('phq9-interpretation').textContent = interpretPHQ9(total);
+            } else {
+                state.gad7Scores[questionIndex] = value;
+                const total = state.gad7Scores.reduce((a, b) => a + b, 0);
+                document.getElementById('gad7-score').textContent = total;
+                document.getElementById('gad7-interpretation').textContent = interpretGAD7(total);
+            }
+        }
+
+        function interpretPHQ9(score) {
+            if (score <= 4) return 'Minimal Depression';
+            if (score <= 9) return 'Mild Depression';
+            if (score <= 14) return 'Moderate Depression';
+            if (score <= 19) return 'Moderately Severe Depression';
+            return 'Severe Depression';
+        }
+
+        function interpretGAD7(score) {
+            if (score <= 4) return 'Minimal Anxiety';
+            if (score <= 9) return 'Mild Anxiety';
+            if (score <= 14) return 'Moderate Anxiety';
+            return 'Severe Anxiety';
+        }
+
+        function saveMentalHealthResults() {
+            alert('Mental health screening results saved successfully!');
+        }
+
+        // ML Prediction Functions
+        function calculateMLPredictions() {
+            state.mlPredictions = mlConditions.map(condition => {
+                const prediction = predictRisk(condition, state.vitalSigns);
+                return {
+                    ...condition,
+                    ...prediction
+                };
+            });
+        }
+
+        function predictRisk(condition, vitals) {
+            let riskScore = 0;
+            let confidence = 0;
+            
+            switch(condition.name) {
+                case 'Diabetes':
+                    riskScore = vitals.bloodGlucose > 125 ? 0.8 : vitals.bloodGlucose > 100 ? 0.5 : 0.2;
+                    confidence = 0.85 + Math.random() * 0.1;
+                    break;
+                case 'Sepsis':
+                    const sepsisFactors = [
+                        vitals.heartRate > 100 ? 0.3 : 0,
+                        vitals.temperature > 100.4 || vitals.temperature < 96.8 ? 0.3 : 0,
+                        vitals.respiratoryRate > 20 ? 0.2 : 0
+                    ];
+                    riskScore = sepsisFactors.reduce((a, b) => a + b, 0.2);
+                    confidence = 0.82 + Math.random() * 0.1;
+                    break;
+                case 'Cardiovascular (Arrhythmia)':
+                    riskScore = (vitals.heartRate < 60 || vitals.heartRate > 100) ? 0.7 : 0.3;
+                    confidence = 0.88 + Math.random() * 0.1;
+                    break;
+                case 'Pneumonia':
+                    const pneumoniaFactors = [
+                        vitals.respiratoryRate > 20 ? 0.3 : 0,
+                        vitals.temperature > 100.4 ? 0.3 : 0,
+                        vitals.oxygenSaturation < 95 ? 0.3 : 0
+                    ];
+                    riskScore = pneumoniaFactors.reduce((a, b) => a + b, 0.1);
+                    confidence = 0.84 + Math.random() * 0.1;
+                    break;
+                case 'Hypertension':
+                    riskScore = vitals.systolicBP >= 140 || vitals.diastolicBP >= 90 ? 0.8 : 
+                               vitals.systolicBP >= 130 || vitals.diastolicBP >= 85 ? 0.5 : 0.2;
+                    confidence = 0.90 + Math.random() * 0.08;
+                    break;
+            }
+            
+            const riskLevel = riskScore > 0.6 ? 'high' : riskScore > 0.35 ? 'moderate' : 'low';
+            const recommendation = getRecommendation(condition.name, riskLevel);
+            
+            return {
+                riskLevel,
+                riskScore: Math.min(riskScore, 1),
+                confidence: Math.min(confidence, 0.99),
+                recommendation
+            };
+        }
+
+        function getRecommendation(condition, riskLevel) {
+            const recommendations = {
+                'Diabetes': {
+                    'low': 'Continue healthy lifestyle. Monitor blood glucose regularly.',
+                    'moderate': 'Consult physician for glucose monitoring plan. Consider dietary modifications.',
+                    'high': 'Immediate medical evaluation recommended. Initiate glucose management protocol.'
+                },
+                'Sepsis': {
+                    'low': 'Continue monitoring vital signs. Maintain good hygiene practices.',
+                    'moderate': 'Increased monitoring advised. Watch for signs of infection.',
+                    'high': 'URGENT: Immediate medical attention required. Potential sepsis risk.'
+                },
+                'Cardiovascular (Arrhythmia)': {
+                    'low': 'Regular cardiovascular monitoring recommended.',
+                    'moderate': 'ECG evaluation advised. Monitor heart rate patterns.',
+                    'high': 'Cardiology consultation recommended. Consider arrhythmia workup.'
+                },
+                'Pneumonia': {
+                    'low': 'Maintain respiratory health. Continue normal monitoring.',
+                    'moderate': 'Monitor respiratory symptoms. Consider chest examination.',
+                    'high': 'Medical evaluation recommended. Chest imaging may be indicated.'
+                },
+                'Hypertension': {
+                    'low': 'Blood pressure within normal range. Continue healthy habits.',
+                    'moderate': 'Lifestyle modifications recommended. Monitor BP regularly.',
+                    'high': 'Medical evaluation needed. Consider antihypertensive therapy.'
+                }
+            };
+            
+            return recommendations[condition][riskLevel];
+        }
+
+        function renderRiskSummary() {
+            const grid = document.getElementById('risk-summary-grid');
+            grid.innerHTML = state.mlPredictions.map(pred => `
+                <div class="risk-item">
+                    <div class="risk-label">${pred.name}</div>
+                    <div class="risk-value risk-${pred.riskLevel}">${pred.riskLevel.toUpperCase()}</div>
+                </div>
+            `).join('');
+        }
+
+        function renderPredictions() {
+            const container = document.getElementById('prediction-cards');
+            container.innerHTML = state.mlPredictions.map(pred => `
+                <div class="prediction-card">
+                    <div class="prediction-header">
+                        <h3 class="condition-name">${pred.name}</h3>
+                        <span class="risk-badge ${pred.riskLevel}">${pred.riskLevel.toUpperCase()} RISK</span>
+                    </div>
+                    <div class="confidence-score">
+                        Model: ${pred.algorithm}
+                        <div class="confidence-bar">
+                            <div class="confidence-fill" style="width: ${pred.confidence * 100}%"></div>
+                        </div>
+                        Confidence: ${(pred.confidence * 100).toFixed(1)}%
+                    </div>
+                    <div class="risk-factors">
+                        <div class="risk-factors-title">Key Risk Factors:</div>
+                        <ul class="risk-factors-list">
+                            ${pred.riskFactors.map(factor => `<li>${factor}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="recommendation">
+                        <strong>Recommendation:</strong> ${pred.recommendation}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function recalculatePredictions() {
+            const btn = event.target;
+            btn.innerHTML = '<span class="loading"></span> Calculating...';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                calculateMLPredictions();
+                renderPredictions();
+                renderRiskSummary();
+                btn.innerHTML = '🔄 Recalculate Predictions';
+                btn.disabled = false;
+            }, 1500);
+        }
+
+        // Clinical Report Functions
+        function generateClinicalReport() {
+            const phq9Total = state.phq9Scores.reduce((a, b) => a + b, 0);
+            const gad7Total = state.gad7Scores.reduce((a, b) => a + b, 0);
+            
+            const reportDate = new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+            
+            const report = `
+                <div class="report-section">
+                    <h3 class="report-section-title">Patient Information</h3>
+                    <div class="patient-info-grid">
+                        <div class="info-item">
+                            <span class="info-label">Patient ID</span>
+                            <span class="info-value">${state.patientInfo.patientId}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Name</span>
+                            <span class="info-value">${state.patientInfo.name}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Age</span>
+                            <span class="info-value">${state.patientInfo.age} years</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Report Date</span>
+                            <span class="info-value">${reportDate}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-section">
+                    <h3 class="report-section-title">Vital Signs Summary</h3>
+                    <table class="vitals-table">
+                        <thead>
+                            <tr>
+                                <th>Vital Sign</th>
+                                <th>Value</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Heart Rate</td>
+                                <td>${state.vitalSigns.heartRate} BPM</td>
+                                <td><span class="vital-status status-${getVitalStatus({key: 'heartRate', value: state.vitalSigns.heartRate, normal: [60, 100]})}">${getVitalStatus({key: 'heartRate', value: state.vitalSigns.heartRate, normal: [60, 100]})}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Blood Pressure</td>
+                                <td>${state.vitalSigns.systolicBP}/${state.vitalSigns.diastolicBP} mmHg</td>
+                                <td><span class="vital-status status-${getVitalStatus({key: 'bp'})}">${getVitalStatus({key: 'bp'})}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Oxygen Saturation</td>
+                                <td>${state.vitalSigns.oxygenSaturation} %</td>
+                                <td><span class="vital-status status-${getVitalStatus({key: 'oxygenSaturation', value: state.vitalSigns.oxygenSaturation, normal: [95, 100]})}">${getVitalStatus({key: 'oxygenSaturation', value: state.vitalSigns.oxygenSaturation, normal: [95, 100]})}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Temperature</td>
+                                <td>${state.vitalSigns.temperature} °F</td>
+                                <td><span class="vital-status status-${getVitalStatus({key: 'temperature', value: state.vitalSigns.temperature, normal: [97.0, 99.5]})}">${getVitalStatus({key: 'temperature', value: state.vitalSigns.temperature, normal: [97.0, 99.5]})}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Respiratory Rate</td>
+                                <td>${state.vitalSigns.respiratoryRate} breaths/min</td>
+                                <td><span class="vital-status status-${getVitalStatus({key: 'respiratoryRate', value: state.vitalSigns.respiratoryRate, normal: [12, 20]})}">${getVitalStatus({key: 'respiratoryRate', value: state.vitalSigns.respiratoryRate, normal: [12, 20]})}</span></td>
+                            </tr>
+                            <tr>
+                                <td>Blood Glucose</td>
+                                <td>${state.vitalSigns.bloodGlucose} mg/dL</td>
+                                <td><span class="vital-status status-${getVitalStatus({key: 'bloodGlucose', value: state.vitalSigns.bloodGlucose, normal: [70, 125]})}">${getVitalStatus({key: 'bloodGlucose', value: state.vitalSigns.bloodGlucose, normal: [70, 125]})}</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="report-section">
+                    <h3 class="report-section-title">Mental Health Assessment</h3>
+                    <div class="patient-info-grid">
+                        <div class="info-item">
+                            <span class="info-label">PHQ-9 Score (Depression)</span>
+                            <span class="info-value">${phq9Total}/27 - ${interpretPHQ9(phq9Total)}</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">GAD-7 Score (Anxiety)</span>
+                            <span class="info-value">${gad7Total}/21 - ${interpretGAD7(gad7Total)}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="report-section">
+                    <h3 class="report-section-title">ML Risk Predictions Summary</h3>
+                    ${state.mlPredictions.map(pred => `
+                        <div style="margin-bottom: var(--space-16); padding: var(--space-12); background: var(--color-background); border-radius: var(--radius-base);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-8);">
+                                <strong>${pred.name}</strong>
+                                <span class="risk-badge ${pred.riskLevel}">${pred.riskLevel.toUpperCase()}</span>
+                            </div>
+                            <div style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">
+                                Model: ${pred.algorithm} | Confidence: ${(pred.confidence * 100).toFixed(1)}%
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="report-section">
+                    <h3 class="report-section-title">Clinical Recommendations</h3>
+                    <ul class="recommendations-list">
+                        ${generateRecommendations().map(rec => `<li>${rec}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="report-section">
+                    <h3 class="report-section-title">Suggested Next Steps</h3>
+                    <ul class="recommendations-list">
+                        ${generateNextSteps().map(step => `<li>${step}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+            
+            document.getElementById('report-content').innerHTML = report;
+        }
+
+        function generateRecommendations() {
+            const recommendations = [];
+            
+            // Vital signs recommendations
+            if (state.vitalSigns.systolicBP >= 140 || state.vitalSigns.diastolicBP >= 90) {
+                recommendations.push('Blood pressure management: Consider lifestyle modifications and/or antihypertensive medication.');
+            }
+            if (state.vitalSigns.bloodGlucose > 125) {
+                recommendations.push('Elevated glucose levels: Recommend diabetes screening (HbA1c, fasting glucose) and dietary counseling.');
+            }
+            if (state.vitalSigns.heartRate > 100 || state.vitalSigns.heartRate < 60) {
+                recommendations.push('Heart rate abnormality detected: Consider ECG and cardiac evaluation.');
+            }
+            
+            // Mental health recommendations
+            const phq9Total = state.phq9Scores.reduce((a, b) => a + b, 0);
+            const gad7Total = state.gad7Scores.reduce((a, b) => a + b, 0);
+            
+            if (phq9Total >= 10) {
+                recommendations.push('Moderate to severe depression indicated: Recommend mental health referral and consider therapy/medication.');
+            }
+            if (gad7Total >= 10) {
+                recommendations.push('Moderate to severe anxiety indicated: Recommend mental health evaluation and anxiety management strategies.');
+            }
+            
+            // ML predictions recommendations
+            state.mlPredictions.forEach(pred => {
+                if (pred.riskLevel === 'high') {
+                    recommendations.push(`${pred.name}: ${pred.recommendation}`);
+                }
+            });
+            
+            if (recommendations.length === 0) {
+                recommendations.push('All vital signs and assessments within normal limits. Continue routine monitoring.');
+            }
+            
+            return recommendations;
+        }
+
+        function generateNextSteps() {
+            const steps = [];
+            
+            const highRiskConditions = state.mlPredictions.filter(p => p.riskLevel === 'high');
+            const moderateRiskConditions = state.mlPredictions.filter(p => p.riskLevel === 'moderate');
+            
+            if (highRiskConditions.length > 0) {
+                steps.push(`Immediate follow-up required for high-risk conditions: ${highRiskConditions.map(c => c.name).join(', ')}.`);
+                steps.push('Schedule comprehensive medical evaluation within 24-48 hours.');
+            }
+            
+            if (moderateRiskConditions.length > 0) {
+                steps.push(`Monitor moderate-risk conditions: ${moderateRiskConditions.map(c => c.name).join(', ')}.`);
+            }
+            
+            const phq9Total = state.phq9Scores.reduce((a, b) => a + b, 0);
+            if (phq9Total >= 15) {
+                steps.push('Urgent mental health evaluation recommended due to moderately severe to severe depression scores.');
+            }
+            
+            steps.push('Continue vital signs monitoring at least twice daily.');
+            steps.push('Patient education on warning signs and when to seek immediate care.');
+            steps.push('Schedule follow-up appointment in 1-2 weeks for reassessment.');
+            steps.push('Review and update medication list with primary care physician.');
+            
+            return steps;
+        }
+
+        function downloadReport() {
+            alert('PDF report download initiated. In a production environment, this would generate and download a PDF file.');
+        }
+
+        function printReport() {
+            window.print();
+        }
+
+        // Initialize app on load
+        init();
+    </script>
+</body>
+</html>
